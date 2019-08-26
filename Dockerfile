@@ -18,3 +18,6 @@ RUN apt-get update \
 	&& pecl install sqlsrv pdo_sqlsrv \
 	&& docker-php-ext-enable sqlsrv pdo_sqlsrv \
 	&& rm -rf /var/lib/apt/lists/*
+
+# workaround for https://github.com/microsoft/msphpsql/issues/1021
+RUN sed -i -E 's/(CipherString\s*=\s*DEFAULT@SECLEVEL=)2/\11/' /etc/ssl/openssl.cnf
